@@ -27,10 +27,12 @@
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:image" content="https://obsidian.md/images/banner.png">
 
+
+
 </head>
 <body class="theme-dark">
 <div class="header-height"></div>
-<header class="header">
+<header class="header" id="site-header">
 	
 	
 	<div class="container flex items-center">
@@ -61,7 +63,7 @@
 	</div>
 </header>
 
-<div class="header-mobile-nav-menu fixed top-0 right-0 bottom-0 left-0 overflow-scroll overscroll-contain block md:hidden">
+<div class="header-mobile-nav-menu fixed top-0 right-0 bottom-0 left-0 overflow-scroll overscroll-contain md:hidden" id="mobile-menu">
 	<div class="container py-4">
 		<ul class="text-xl font-medium grid sm:grid-cols-2 pb-4 border-b border-gray-800">
 			<li><a class="flex py-1 items-center gap-2" href="/download">
@@ -158,6 +160,103 @@
 		</div>
 	</div>
 	</div>
+
+<script>
+(function() {
+  const header = document.getElementById('site-header');
+  const mobileToggle = document.querySelector('.header-mobile-nav');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const headerHeightSpacer = document.querySelector('.header-height');
+
+  // Sticky header behavior
+  let lastKnownScrollY = 0;
+  let ticking = false;
+  const fixThreshold = 10; // pixels before we fix the header
+
+  function onScroll() {
+    lastKnownScrollY = window.scrollY || window.pageYOffset;
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const shouldFix = lastKnownScrollY > fixThreshold;
+        if (header) header.classList.toggle('is-fixed', shouldFix);
+        // Set spacer height equal to header height when fixed to prevent layout shift
+        if (headerHeightSpacer && header) {
+          headerHeightSpacer.style.height = shouldFix ? header.offsetHeight + 'px' : '0px';
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  // Initialize state on load
+  onScroll();
+
+  // Mobile menu toggle
+  function closeMenu() {
+    document.body.classList.remove('menu-open');
+    if (mobileMenu) mobileMenu.classList.remove('is-open');
+  }
+  function openMenu() {
+    document.body.classList.add('menu-open');
+    if (mobileMenu) mobileMenu.classList.add('is-open');
+  }
+  function toggleMenu(e) {
+    if (e) e.preventDefault();
+    const isOpen = document.body.classList.contains('menu-open');
+    if (isOpen) closeMenu(); else openMenu();
+  }
+
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', toggleMenu);
+  }
+
+  // Close mobile menu on ESC or when clicking backdrop
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+  if (mobileMenu) {
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) closeMenu();
+    });
+  }
+})();
+</script>
+
+<!-- Phase 2 styles and scripts placed at end of body as requested -->
+<style>
+/* Sticky header (activates only after scroll) */
+.header { position: relative; z-index: 60; transition: background-color .2s ease, box-shadow .2s ease; }
+.header.is-fixed { position: fixed; top: 0; left: 0; right: 0; background-color: rgba(16,16,20,0.6); backdrop-filter: saturate(140%) blur(8px); box-shadow: 0 1px 0 rgba(255,255,255,0.06); }
+.header-height { height: 0; }
+
+/* Smooth link hovers (desktop nav) */
+header .container a { transition: color .15s ease, background-color .15s ease, opacity .15s ease; }
+
+/* Mobile hamburger button and morph to X */
+.header-mobile-nav-button { width: 28px; height: 22px; position: relative; }
+.header-mobile-nav-button-inner,
+.header-mobile-nav-button-inner::before,
+.header-mobile-nav-button-inner::after {
+  content: "";
+  position: absolute; left: 0; right: 0; height: 2px; background-color: #e5e7eb; border-radius: 2px;
+  transition: transform .2s ease, top .2s ease, opacity .2s ease, background-color .2s ease;
+}
+.header-mobile-nav-button-inner { top: 10px; left: 0; right: 0; width: 100%; }
+.header-mobile-nav-button-inner::before { top: -8px; }
+.header-mobile-nav-button-inner::after { top: 8px; }
+body.menu-open .header-mobile-nav-button-inner { background-color: transparent; }
+body.menu-open .header-mobile-nav-button-inner::before { top: 0; transform: rotate(45deg); }
+body.menu-open .header-mobile-nav-button-inner::after { top: 0; transform: rotate(-45deg); }
+
+/* Mobile menu overlay (hidden by default, opened via is-open) */
+.header-mobile-nav-menu { display: none; opacity: 0; pointer-events: none; transition: opacity .2s ease; z-index: 40; }
+.header-mobile-nav-menu.is-open { display: block; opacity: 1; pointer-events: auto; }
+
+/* Lock page scroll when menu is open */
+body.menu-open { overflow: hidden; }
+</style>
 
 </body>
 </html>
