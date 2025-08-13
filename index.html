@@ -1263,6 +1263,32 @@ body {
       mobileCheckboxContainer?.classList.add('is-enabled');
     }
   }
+  
+  function handleThemeChange(isChecked) {
+    const newTheme = isChecked ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    
+    if (themeToggle) themeToggle.checked = isChecked;
+    if (themeToggleMobile) themeToggleMobile.checked = isChecked;
+    
+    if (isChecked) {
+      checkboxContainer?.classList.add('is-enabled');
+      mobileCheckboxContainer?.classList.add('is-enabled');
+    } else {
+      checkboxContainer?.classList.remove('is-enabled');
+      mobileCheckboxContainer?.classList.remove('is-enabled');
+    }
+  }
+  
+  themeToggle?.addEventListener('change', function() {
+    handleThemeChange(this.checked);
+  });
+  
+  themeToggleMobile?.addEventListener('change', function() {
+    handleThemeChange(this.checked);
+  });
 })();
 </script>
 
