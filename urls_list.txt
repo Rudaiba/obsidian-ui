@@ -1,0 +1,47 @@
+# Obsidian Website URLs to Scrape
+
+## Navigation Pages
+https://obsidian.md/
+https://obsidian.md/download
+https://obsidian.md/pricing
+https://obsidian.md/sync
+https://obsidian.md/publish
+https://obsidian.md/enterprise
+https://obsidian.md/community
+https://obsidian.md/account
+
+## Product Pages
+https://obsidian.md/canvas
+https://obsidian.md/mobile
+https://obsidian.md/clipper
+https://obsidian.md/plugins
+
+## Content Pages
+https://obsidian.md/about
+https://obsidian.md/blog
+https://obsidian.md/changelog
+https://obsidian.md/roadmap
+https://obsidian.md/security
+https://obsidian.md/softwear
+https://obsidian.md/privacy
+https://obsidian.md/license
+https://obsidian.md/terms
+https://obsidian.md/brand
+
+## External Documentation
+https://help.obsidian.md
+https://docs.obsidian.md
+
+## Community Platforms
+https://discord.gg/obsidianmd
+https://forum.obsidian.md
+https://forum-zh.obsidian.md
+
+## Social Media
+https://discord.com/invite/obsidianmd
+https://x.com/obsdmd
+https://bsky.app/profile/obsidian.md
+https://www.threads.net/@obsdmd
+https://mas.to/@obsidian
+https://www.youtube.com/@obsdmd
+https://github.com/obsidianmd

@@ -21,6 +21,6 @@ Open `index.html` in your browser.
 
 ## Notes
 
-Learning project only. Images copyright Obsidian.
+Learning project only. Images copyright Obsidian. Used some AI for JS since I'm still learning how it works but its not 30% of the code, mostly is writing the HTML. 
 
 
